@@ -1,0 +1,31 @@
+section {
+    position: static !important;
+}
+
+/* h3 são os textos das informações do cadastro */
+
+h3.mb-3 {
+    font-size: 15pt;
+}
+
+input[type="radio"] {
+    visibility: hidden;
+}
+
+.labelimg {
+    display: block;
+    border: 4px solid #666;
+    width: 200px;
+}
+
+input[type="radio"]:checked+label {
+    border-color: red;
+}
+
+.imglabel {
+    height: 120px;
+}
+
+#aceitos, #atrasados, #concluidos {
+    display: none;
+}

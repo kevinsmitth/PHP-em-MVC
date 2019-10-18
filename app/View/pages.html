@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Projetos</title>
+    <link rel="stylesheet" href="/public/styles/home.css" />
+    <style>
+        .modal-backdrop {
+        display: none;
+        }
+    </style>
+  </head>
+  <body>
+    {% if session.nivel == 10 %}
+      <h1 class="text-center text-white mb-5">Todas as Paginas</h1>
+    {% endif %}
+    <section class="container" data-aos="fade-up" data-aos-duration="3000">
+        <div class="row active-with-click">
+            {% for postagem in postagens %}
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              {% if session.nivel == 10 %}
+              <form method="post" action="/admin/update" class="text-white" autocomplete="off">
+                <div class="text-center mb-2">
+                  <i class="fas fa-image"></i>
+                  <input type="url" name="imglink" value="{{postagem.imglink}}" class="w-50">
+                  <input type="hidden" name="id" value="{{ postagem.id }}" />
+                </div>
+                <div class="text-center divdestaque">
+                    <span class="fas fa-paint-roller"></span>
+                    <input type="text" id="cores" name="cor" list="arcoIris" value="{{postagem.cor}}">
+                    <datalist id="arcoIris">
+                      {% for cor in cores %}
+                    <option value="{{cor.cor}}">{{cor.codigo}}</option>
+                    {% endfor %}
+                    </datalist><br>
+                    <span  class="trocadest"> <i class="fas fa-chart-line"></i> Destaque:</span>
+                    <input type="text" class="text-primary w-25 my-1 destaque" name="destaque" value="{{postagem.destaque}}" style="outline: 0; border:none; background: none;" readonly> 
+                    <br>
+                    <input
+                      class="btn btn-sm my-1"
+                      style="background: {{ postagem.cor }}; color:white;"
+                      type="submit"
+                      value="Salvar"
+                      onClick='return salvaredicao("Deseja Salvar?")'
+                    >
+                </div>
+                {% endif %}
+              <article class="material-card {{ postagem.cor }}">
+                <h2>
+                  {% if session.nivel == 10 %}
+                    <input
+                      type="text"
+                      name="titulo"
+                      value="{{ postagem.titulo }}"
+                      style="outline: 0;"
+                      class="w-75"
+                    />
+                    {% else %}
+                    <span>{{ postagem.titulo }}</span>
+                    {% endif %}
+                  {% if session.nivel == 10 %}
+                  <strong>
+                    <i class="fa fa-fw fa-star"></i>
+                    <input type="text" name="subtitulo" value="{{postagem.subtitulo}}" class="w-50 mt-2">
+                  </strong>
+                  {% else %}
+                  <strong>
+                    <i class="fa fa-fw fa-star"></i>
+                    {{ postagem.subtitulo }}
+                    {% if postagem.link == true %}
+                      <a class="btn btn-sm btn-dark ml-1" href="{{postagem.link}}">Visualizar</a>
+                      {% else %}
+                      <a href="#" class="btn btn-sm btn-secondary ml-1" data-toggle="tooltip" data-placement="top" title="Em Breve">Visualizar</a>
+                      {% endif %}
+                  </strong>
+                  {% endif %}
+                </h2>
+                <div class="mc-content">
+                  <div class="img-container">
+                    <img class="img-fluid" src="{{ postagem.imglink }}" />
+                  </div>
+                  {% if session.nivel == 10 %}
+                  <div class="mc-description">
+                    <textarea name="descricao" cols="28" rows="4" maxlength="100">{{postagem.descricao}}</textarea>
+                  </div>
+                  {% else %}
+                  <div class="mc-description">
+                    {{ postagem.descricao }}
+                  </div>
+                  {% endif %}
+                </div>
+                <a class="mc-btn-action">
+                  <i class="fa fa-bars"></i>
+                </a>
+                <div class="mc-footer">
+                  {% if session.nivel == 10 %}
+                  <h4>
+                      {{ postagem.categoria }}
+                      <select name="categoria" id="categorias" value="{{postagem.categoria}}">
+                        {% for categoria in categorias %}
+                        <option value="{{categoria.tipo}}">{{categoria.tipo}}</option>
+                        {% endfor %}
+                      </select>
+                  </h4>
+                  {% else %}
+                  <h4>
+                    {{ postagem.categoria }}
+                  </h4>
+                  {% endif %}
+                  {% if session.nivel == 10 %}
+                <a data-toggle="modal" data-target="#modalLinks"
+                href=""
+                class="fab fa-facebook-square text-center"
+              ></a>
+              <a data-toggle="modal" data-target="#modalLinks"
+                href=""
+                class="fab fa-github text-center"
+              ></a>
+              <a data-toggle="modal" data-target="#modalLinks"
+                href=""
+                class="fab fa-linkedin text-center"
+              ></a>
+              <a data-toggle="modal" data-target="#modalLinks"
+                href=""
+                class="fas fa-envelope-square text-center"
+              ></a>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="modalLinks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="exampleModalLabel">Links dos Icones</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body text-center">
+                          <i class="fab fa-facebook-square"></i>
+                          <input type="text" name="facebook" placeholder="Facebook" value="{{postagem.facebook}}">
+                          <br>
+  
+                          <i class="fab fa-github my-2"></i>
+                          <input type="text" name="github" placeholder="Github" value="{{postagem.github}}">
+                          <br>
+  
+                          <i class="fab fa-linkedin"></i>
+                          <input type="text" name="linkedin" placeholder="Linkedin" value="{{postagem.linkedin}}">
+                          <br>
+  
+                          <i class="fab fa-weebly mt-2"></i>
+                          <input type="text" name="workana" placeholder="Workana" value="{{postagem.workana}}">
+  
+                        </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" onclick='return salvaredicao("Deseja Salvar?")'>Salvar mudanças</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </form>
+                  {% else %}
+                  <a
+                    href="{{ postagem.facebook }}"
+                    class="fab fa-facebook-square text-center"
+                    target="_blank"
+                  ></a>
+                  <a
+                    href="{{ postagem.github }}"
+                    class="fab fa-github text-center"
+                    target="_blank"
+                  ></a>
+                  <a
+                    href="{{ postagem.linkedin }}"
+                    class="fab fa-linkedin text-center"
+                    target="_blank"
+                  ></a>
+                  <a
+                    href="{{ postagem.workana }}"
+                    class="fab fa-weebly text-center"
+                    target="_blank"
+                  ></a>
+                  {%endif%}
+                </div>
+              </article>
+            </div>
+            {% endfor %}
+          </div>
+          {% if session.nivel == 10 %} 
+          <div class="container text-center my-5"> 
+            {% else %}
+          <div class="container text-center mb-5">
+            {% endif %}
+          </div>
+    </section>
+    <script src="/public/scripts/jquery.js"></script>
+    <script src="/public/scripts/home.js"></script>
+
+    <script>
+      /* JS do grid dos artistas */
+      $(function() {
+        $('.material-card > .mc-btn-action').click(function() {
+          var card = $(this).parent('.material-card');
+          var icon = $(this).children('i');
+          icon.addClass('fa-spin-fast');
+
+          if (card.hasClass('mc-active')) {
+            card.removeClass('mc-active');
+
+            window.setTimeout(function() {
+              icon
+                .removeClass('fa-arrow-left')
+                .removeClass('fa-spin-fast')
+                .addClass('fa-bars');
+            }, 800);
+          } else {
+            card.addClass('mc-active');
+
+            window.setTimeout(function() {
+              icon
+                .removeClass('fa-bars')
+                .removeClass('fa-spin-fast')
+                .addClass('fa-arrow-left');
+            }, 800);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

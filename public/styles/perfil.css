@@ -1,0 +1,54 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ddd;
+}
+
+.bcorpo {
+    background-color: #fff;
+}
+
+.menu {
+    list-style: none;
+    float: left;
+}
+
+.menu li {
+    position: relative;
+    float: left;
+    border: 1px solid rgb(78, 102, 168);
+    line-height: 40px;
+    text-indent: px;
+    width: 33%;
+}
+
+.menu li a {
+    color: rgb(78, 102, 168);
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+    width: 100%;
+}
+
+.menu li a:hover {
+    background: #333;
+    color: #fff;
+    -moz-box-shadow: 0 3px 10px 0 #CCC;
+    -webkit-box-shadow: 0 3px 10px 0 #ccc;
+    text-shadow: 0px 0px 5px #fff;
+}
+
+.sub_icon {
+    padding-left: 6px;
+}
+
+.inputescondido {
+    visibility: hidden;
+    display: none;
+}
+
+

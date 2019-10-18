@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/public/styles/admin.css" />
+  </head>
+  <body>
+    <div class="container">
+      {% for contato in contatos%}
+      <h3>Nome: {{ contato.nome }}</h3>
+      <h5>Email: {{ contato.email }}</h5>
+      <p>Mensagem: {{ contato.msg }}</p>
+      <p>
+        <span>Data: {{ contato.data|date("H:i:s d/m/Y") }}</span>
+      </p>
+      {% endfor %}
+    </div>
+    <script src="/public/scripts/jquery.js"></script>
+    <script src="/public/scripts/admin.js"></script>
+  </body>
+</html>

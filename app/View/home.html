@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Início</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/public/styles/slick.css" />
+    <link rel="stylesheet" href="/public/styles/slick-theme.css" />
+    <link rel="stylesheet" href="/public/styles/home.css" />
+    <link rel="stylesheet" href="/public/styles/aos.css" />
+    <style>
+    .modal-backdrop {
+  display: none;
+}
+    </style>
+  </head>
+
+  <body>
+    <!--{{ "now"|date('d/m/Y H:i', timezone="America/Sao_Paulo") }}-->
+    {% if session.nivel == 10 %}
+      <h1 class="text-center text-white mb-5">Paginas Em Destaque</h1>
+    {% endif %}
+    <div id="background-geral">
+        <div role="alert" id="toastsucesso" aria-live="assertive" aria-atomic="true" class="toast mr-3 text-white bg-success" style="right: 0 !important;  position: fixed; top:90px; z-index:1; display:none;" data-autohide="false">
+            <div class="toast-header bg-success text-white">
+              <strong class="mr-auto">Obrigado!</strong>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Sua Mensagem foi enviada.
+            </div>
+          </div>
+      <section
+        id="projetos"
+        data-aos="fade-up"
+        data-aos-duration="2000"
+        class="container pb-4"
+        style="background: rgba(0,0,0,.3)"
+      >
+        <div class="row active-with-click">
+          {% for postagem in postagens %}
+          <div class="col-md-6 col-sm-12 col-lg-4">
+            {% if session.nivel == 10 %}
+            <form method="post" action="/admin/update" class="text-white" autocomplete="off">
+              <div class="text-center mb-2">
+                <i class="fas fa-image"></i>
+                <input type="url" name="imglink" value="{{postagem.imglink}}" class="w-50">
+                <input type="hidden" name="id" value="{{ postagem.id }}" />
+              </div>
+              <div class="text-center divdestaque">
+                  <span class="fas fa-paint-roller"></span>
+                  <input type="text" id="cores" name="cor" list="arcoIris" value="{{postagem.cor}}">
+                  <datalist id="arcoIris">
+                    {% for cor in cores %}
+                  <option value="{{cor.cor}}">{{cor.codigo}}</option>
+                  {% endfor %}
+                  </datalist><br>
+                  <span  class="trocadest"> <i class="fas fa-chart-line"></i> Destaque:</span>
+                  <input type="text" class="text-primary w-25 my-1 destaque" name="destaque" value="{{postagem.destaque}}" style="outline: 0; border:none; background: none;" readonly> 
+                  <br>
+                  <input
+                    class="btn btn-sm my-1"
+                    style="background: {{ postagem.cor }}; color:white;"
+                    type="submit"
+                    value="Salvar"
+                    onClick='return salvaredicao("Deseja Salvar?")'
+                  >
+              </div>
+              {% endif %}
+            <article class="material-card {{ postagem.cor }}">
+              <h2>
+                {% if session.nivel == 10 %}
+                  <input
+                    type="text"
+                    name="titulo"
+                    value="{{ postagem.titulo }}"
+                    style="outline: 0;"
+                    class="w-75"
+                  />
+                  {% else %}
+                  <span>{{ postagem.titulo }}</span>
+                  {% endif %}
+                {% if session.nivel == 10 %}
+                <strong>
+                  <i class="fa fa-fw fa-star"></i>
+                  <input type="text" name="subtitulo" value="{{postagem.subtitulo}}" class="w-50 mt-2">
+                </strong>
+                {% else %}
+                <strong>
+                  <i class="fa fa-fw fa-star"></i>
+                  {{ postagem.subtitulo }}
+                  {% if postagem.link == true %}
+                    <a class="btn btn-sm btn-dark ml-1" href="{{postagem.link}}">Visualizar</a>
+                    {% else %}
+                    <a href="#" class="btn btn-sm btn-secondary ml-1" data-toggle="tooltip" data-placement="top" title="Em Breve">Visualizar</a>
+                    {% endif %}
+                </strong>
+                {% endif %}
+              </h2>
+              <div class="mc-content">
+                <div class="img-container">
+                  <img class="img-fluid" src="{{ postagem.imglink }}" />
+                </div>
+                {% if session.nivel == 10 %}
+                <div class="mc-description">
+                  <textarea name="descricao" cols="28" rows="4" maxlength="100">{{postagem.descricao}}</textarea>
+                </div>
+                {% else %}
+                <div class="mc-description">
+                  {{ postagem.descricao }}
+                </div>
+                {% endif %}
+              </div>
+              <a class="mc-btn-action">
+                <i class="fa fa-bars"></i>
+              </a>
+              <div class="mc-footer">
+                {% if session.nivel == 10 %}
+                <h4>
+                    {{ postagem.categoria }}
+                    <select name="categoria" id="categorias" value="{{postagem.categoria}}">
+                      {% for categoria in categorias %}
+                      <option value="{{categoria.tipo}}">{{categoria.tipo}}</option>
+                      {% endfor %}
+                    </select>
+                </h4>
+                {% else %}
+                <h4>
+                  {{ postagem.categoria }}
+                </h4>
+                {% endif %}
+                {% if session.nivel == 10 %}
+              <a data-toggle="modal" data-target="#modalLinks"
+              href=""
+              class="fab fa-facebook-square text-center"
+            ></a>
+            <a data-toggle="modal" data-target="#modalLinks"
+              href=""
+              class="fab fa-github text-center"
+            ></a>
+            <a data-toggle="modal" data-target="#modalLinks"
+              href=""
+              class="fab fa-linkedin text-center"
+            ></a>
+            <a data-toggle="modal" data-target="#modalLinks"
+              href=""
+              class="fas fa-envelope-square text-center"
+            ></a>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="modalLinks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-dark" id="exampleModalLabel">Links dos Icones</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="fab fa-facebook-square"></i>
+                        <input type="text" name="facebook" placeholder="Facebook" value="{{postagem.facebook}}">
+                        <br>
+
+                        <i class="fab fa-github my-2"></i>
+                        <input type="text" name="github" placeholder="Github" value="{{postagem.github}}">
+                        <br>
+
+                        <i class="fab fa-linkedin"></i>
+                        <input type="text" name="linkedin" placeholder="Linkedin" value="{{postagem.linkedin}}">
+                        <br>
+
+                        <i class="fab fa-weebly mt-2"></i>
+                        <input type="text" name="workana" placeholder="Workana" value="{{postagem.workana}}">
+
+                      </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                      <button type="button" class="btn btn-primary" onclick='return salvaredicao("Deseja Salvar?")'>Salvar mudanças</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+<!-- prettier-ignore-start -->
+
+</form>
+
+<!-- prettier-ignore-end -->
+
+                {% else %}
+                <a
+                  href="{{ postagem.facebook }}"
+                  class="fab fa-facebook-square text-center"
+                  target="_blank"
+                ></a>
+                <a
+                  href="{{ postagem.github }}"
+                  class="fab fa-github text-center"
+                  target="_blank"
+                ></a>
+                <a
+                  href="{{ postagem.linkedin }}"
+                  class="fab fa-linkedin text-center"
+                  target="_blank"
+                ></a>
+                <a
+                  href="{{ postagem.workana }}"
+                  class="fab fa-weebly text-center"
+                  target="_blank"
+                ></a>
+                {%endif%}
+              </div>
+            </article>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="container text-center mb-2">
+          <a class="btn btn-lg btn-danger mt-3" href="/pages">Mais...</a>
+        </div>
+      </section>
+      <section
+        data-aos="fade-up"
+        data-aos-duration="3000"
+        style="background: #eceff1"
+        class="mb-1"
+      >
+        <div class="container" id="habilidades">
+          <h1 class="text-center my-3 pt-3">Habilidades</h1>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-lg-3 ">
+              <div class="service-box">
+                <div class="service-icon yellow">
+                  <div class="front-content">
+                    <i class="fab fa-html5"></i>
+                    <h3>HTML</h3>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <h3>HTML</h3>
+                  <p>
+                      O código HTML está presente nas páginas da web há mais de dez anos e tem uma larga aceitação dos usuários por todo o mundo. Com certeza, qualquer pessoa que tem uma ligação um pouco mais estreita com computadores e internet já ouviu falar em HyperText Markup Language
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-3 ">
+              <div class="service-box">
+                <div class="service-icon orange">
+                  <div class="front-content">
+                    <i class="fab fa-php"></i>
+                    <h3>php</h3>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <h3>php developer</h3>
+                  <p>
+                      PHP é uma linguagem interpretada livre, usada originalmente apenas para o desenvolvimento de aplicações presentes e atuantes no lado do servidor, capazes de gerar conteúdo dinâmico na World Wide Web
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-3">
+              <div class="service-box ">
+                <div class="service-icon red">
+                  <div class="front-content">
+                    <i class="fab fa-js-square" style="color: black;"></i>
+                    <h3 style="color: black">JavaScript</h3>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <h3>JavaScript</h3>
+                  <p>
+                      JavaScript é uma linguagem de programação que permite a você implementar itens complexos em páginas web. toda vez que uma página da web faz mais do que simplesmente mostrar a você informação estática. mostrando conteúdo que se atualiza em um intervalo de tempo, mapas interativos ou gráficos 2D/3D animados, etc.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-3">
+              <div class="service-box">
+                <div class="service-icon grey">
+                  <div class="front-content">
+                    <i class="fab fa-bootstrap"></i>
+                    <h3>Bootstrap</h3>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <h3>Bootstrap</h3>
+                  <p>
+                      Bootstrap é um framework web com código-fonte aberto para desenvolvimento de componentes de interface e front-end para sites e aplicações web usando HTML, CSS e JavaScript, baseado em modelos de design para a tipografia, melhorando a experiência do usuário em um site amigável e responsivo.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="mx-auto mt-1 mb-2"
+        style="background: rgba(0,0,0,.3)"
+        data-aos="fade-up"
+        data-aos-duration="2000"
+      >
+        <div class="container aboutme mb-3 py-4 text-white">
+          <img
+            class="minhafoto"
+            src="/public/img/me.png"
+            style="margin-right: 15px; margin-bottom: 7px"
+          /><span class="tituloo ml-1 mr-3">Kevin Smith</span>
+          <span class="pb-3" style="color: cyan">
+            Desenvolvedor Web
+            <i class="fas fa-star" style="color: goldenrod"></i
+          ></span>
+          <p class="mt-2">
+            Ola, tudo bem? Meu nome é Kevin. Sou um jovem Programador Junior,
+            buscando sempre aprender com erros de um modo geral. Totalmente
+            determinado e disposto a resolver bugs, criar sistemas simples e
+            complexos, e continuar estudando tudo quanto é tipo de tecnologia
+            que satisfaça as vontades dos clientes. Sim, você não leu errado.
+            Minha intenção é aprender para resolver os problemas dos outros.
+            Automatizar algo em que o mesmo precise, ou corrigir aquele bug
+            chato que ninguém quer resolver. Esse sou eu. Espero que esse breve
+            resumo seja satisfatório pra você Cliente, ou Programador, entre em
+            contato para saber mais sobre o meu trabalho.
+          </p>
+        </div>
+      </section>
+      <section
+        class="container p-2 mt-2 mb-5
+        text-center"
+        id="contato"
+        style=""
+        data-aos="fade-up"
+        data-aos-duration="2000"
+      >
+          <form action="/home/insertcontato" method="post" id="formmsg" class="col-12 rounded p-4 mx-auto" style="background: #ddd;">
+              <h1 class="text-center mb-5">Contato</h1>
+            <div class="form-group">
+              <label for="nome">Nome:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nome"
+                placeholder="Kevin, João, etc.."
+                required
+                name="nome"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="name@example.com"
+                required
+                name="email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="textao">Digite Aqui:</label>
+              <textarea class="form-control" id="textao" rows="5" name="msg"></textarea>
+            </div>
+            <input
+              type="submit"
+              class="btn btn-lg btn-warning d-block mx-auto"
+              value="Enviar"
+              id="envmsg"
+              
+            />
+          </form>
+      </section>
+    </div>
+    <script src="/public/scripts/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/public/scripts/jquery.circliful.js"></script>
+    <script src="/public/scripts/home.js"></script>
+    <script src="/public/scripts/slick.js"></script>
+    <script src="/public/scripts/snap.svg.js"></script>
+    <script src="/public/scripts/aos.js"></script>
+    <script>
+      AOS.init();
+      $(document).ready(function(){
+        $('.toast').toast("show");
+});
+
+$("#formmsg").submit(function(e) {
+
+e.preventDefault(); // avoid to execute the actual submit of the form.
+
+var form = $(this);
+var url = form.attr('action');
+
+$.ajax({
+       type: "POST",
+       url: url,
+       data: form.serialize(), // serializes the form's elements.
+       success: function(data)
+       {
+          const painel = document.getElementById('toastsucesso');
+          painel.style.display = 'block';
+          $('#formmsg').find('input:text').val('');
+          $('#formmsg').find('#email').val('');
+          $('#formmsg').find('textarea').val('');
+          setTimeout(function(){$('#toastsucesso').fadeOut();},
+        3000);
+
+       }
+     });
+
+
+});
+
+/*
+
+$( "#formmsg" ).submit(function( event ) {
+  event.preventDefault();
+  const painel = document.getElementById('toastsucesso');
+  painel.style.display = 'block';
+  this.submit();
+}, 2000);*/
+
+    </script>
+    <script>
+      $('.autoplay').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        arrows: false,
+        lazyLoad: 'ondemand',
+        autoplaySpeed: 2000
+      });
+
+      /* JS do grid dos artistas */
+      $(function() {
+        $('.material-card > .mc-btn-action').click(function() {
+          var card = $(this).parent('.material-card');
+          var icon = $(this).children('i');
+          icon.addClass('fa-spin-fast');
+
+          if (card.hasClass('mc-active')) {
+            card.removeClass('mc-active');
+
+            window.setTimeout(function() {
+              icon
+                .removeClass('fa-arrow-left')
+                .removeClass('fa-spin-fast')
+                .addClass('fa-bars');
+            }, 800);
+          } else {
+            card.addClass('mc-active');
+
+            window.setTimeout(function() {
+              icon
+                .removeClass('fa-bars')
+                .removeClass('fa-spin-fast')
+                .addClass('fa-arrow-left');
+            }, 800);
+          }
+        });
+      });
+
+      /* função de salvar a edição dos grids */
+
+      function salvaredicao(msg, url) {
+        if (confirm(msg)) {
+          window.location.href = '/admin/update';
+        } else {
+          return false;
+        }
+      }
+
+  /* mudar ao clicar botao de destaque 'sim' e 'não' */
+  $('.divdestaque').on("click", ".destaque, .deactivate", function (e) {
+    e.preventDefault();
+    var ativo = $(this).hasClass('destaque');
+    $(this).val(ativo ? "Não" : "Sim").toggleClass("destaque deactivate");
+});
+
+
+
+    </script>
+

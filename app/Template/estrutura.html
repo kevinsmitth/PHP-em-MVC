@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta
+      name="msapplication-TileImage"
+      content="/public/favicons/ms-icon-144x144.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="/public/favicons/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="/public/favicons/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="/public/favicons/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="/public/favicons/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="/public/favicons/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="/public/favicons/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="/public/favicons/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="/public/favicons/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/public/favicons/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/public/favicons/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/public/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/public/favicons/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/public/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/public/favicons/manifest.json" />
+
+    <link rel="stylesheet" href="/public/styles/bootstrap.css" />
+    <link rel="stylesheet" href="/public/styles/estrutura.css" />
+    <link rel="stylesheet" href="/public/styles/aos.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <script src="/public/scripts/sweetalert.js"></script>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      #conteudo {
+        min-height: 100%;
+        padding-bottom: 80px;
+      }
+      #rodape {
+        background: rgba(0, 0, 0, 0.7);
+        width: 100%;
+        height: 5rem;
+        bottom: 0 !important;
+        margin-top: -80px;
+      }
+      #redes-sociais a {
+        color: #a52a2a;
+        text-decoration: none;
+      }
+      #redes-sociais a:hover {
+        color: Goldenrod;
+      }
+      .active {
+        color: #a52a2a !important;
+      }
+      .scrolltop {
+        display: none;
+        width: 100%;
+        margin: 0 auto;
+        position: fixed;
+        bottom: 20px;
+        right: 10px;
+      }
+      .scroll {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        background: #b2b2b2;
+        background: rgba(178, 178, 178, 0.7);
+        padding: 20px;
+        text-align: center;
+        margin: 0 0 0 0;
+        cursor: pointer;
+        transition: 0.5s;
+        -moz-transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -o-transition: 0.5s;
+      }
+      .scroll:hover {
+        background: rgba(178, 178, 178, 1);
+        transition: 0.5s;
+        -moz-transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -o-transition: 0.5s;
+      }
+      .scroll:hover .fa {
+        padding-top: -10px;
+      }
+      .scroll .fa {
+        font-size: 30px;
+        margin-top: -5px;
+        margin-left: 1px;
+        transition: 0.5s;
+        -moz-transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -o-transition: 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="cabecalho">
+      <nav class="navbar navbar-expand-lg navbar-dark" id="navbar-cont">
+        <div class="container">
+          <!-- Local do banner pequeno, optei por nao colocar -->
+          <a class="navbar-brand px-3 py-0 mr-0">
+            <span class="ml-2 mt-1" id="logo-ks">KS</span>
+          </a>
+          <button
+            class="navbar-toggler mr-3"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSite"
+            style="outline: none;"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSite">
+            <ul class="navbar-nav text-center ml-auto navi" id="naviid">
+              <li class="nav-item">
+                <a class="nav-link" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#habilidades">Habilidades</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#projetos">Projetos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contato">Contato</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="collapse"
+                  data-target="#dropdownmenu"
+                  >Paginas</a
+                >
+                <div class="collapse" id="dropdownmenu">
+                  <a class="nav-link" href="#">Galeria</a>
+                  <a class="nav-link" href="#">Loja</a>
+                  <a class="nav-link" href="/pages">Outras</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Login">Login</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div id="conteudo" style="padding-top: 110px;;">
+      {{ area_dinamica }}
+      <div class="scrolltop">
+        <div class="scroll icon"><i class="fa fa-4x fa-angle-up"></i></div>
+      </div>
+    </div>
+
+    <footer id="rodape">
+      <div
+        class="container text-center"
+        id="redes-sociais"
+        alt="redes sociais"
+        style="font-size: 50px;"
+      >
+        <a href="#" class="fab fa-facebook-square" target="_blank"></a>
+        <a href="#" class="fab fa-whatsapp-square" target="_blank"></a>
+        <a href="#" class="fab fa-linkedin" target="_blank"></a>
+        <a href="#" class="fab fa-github" target="_blank"></a>
+        <a href="#" class="fab fa-instagram" target="_blank"></a>
+      </div>
+    </footer>
+    <script src="/public/scripts/jquery.js"></script>
+    <script src="/public/scripts/sweetalert.js"></script>
+    <script src="/public/scripts/ativoslinks.js"></script>
+    <script src="/public/scripts/estrutura.js"></script>
+    <script src="/public/scripts/popper.js"></script>
+    <script src="/public/scripts/bootstrap.js"></script>
+    <script src="/public/scripts/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script>
+      $('.navbar-nav a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+        var id = $(this).attr('href'),
+          targetOffset = $(id).offset().top;
+
+        $('html, body').animate(
+          {
+            scrollTop: targetOffset - 100
+          },
+          1200
+        );
+      });
+
+      //scrooltop
+
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 50) {
+          $('.scrolltop:hidden')
+            .stop(true, true)
+            .fadeIn();
+        } else {
+          $('.scrolltop')
+            .stop(true, true)
+            .fadeOut();
+        }
+      });
+      $(function() {
+        $('.scroll').click(function() {
+          $('html,body').animate(
+            { scrollTop: $('#cabecalho').offset().top },
+            '1000'
+          );
+          return false;
+        });
+      });
+      /* ativa os links pra mudar a cor */
+      $(document).ready(function() {
+        $(
+          ".navi li a[href='" +
+            location.href.substring(location.href.lastIndexOf('/'), 255) +
+            "']"
+        ).addClass('active');
+      });
+
+      /* tooltips do bootstrap mostra msg antes nos botoes */
+
+      $(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+  </body>
+</html>
