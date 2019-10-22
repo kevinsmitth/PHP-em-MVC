@@ -1,0 +1,15 @@
+#rodape {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 5rem;
+  bottom: 0 !important;
+}
+
+#redes-sociais a {
+  color: #a52a2a;
+  text-decoration: none;
+}
+
+#redes-sociais a:hover {
+  color: Goldenrod;
+}

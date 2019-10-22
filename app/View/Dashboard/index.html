@@ -1,0 +1,13 @@
+<title>Dashboard</title>
+<link rel="stylesheet" href="app/View/Dashboard/styles.css" />
+<div class="container">
+  {% for contato in contatos%}
+  <h3>Nome: {{ contato.nome }}</h3>
+  <h5>Email: {{ contato.email }}</h5>
+  <p>Mensagem: {{ contato.msg }}</p>
+  <p>
+    <span>Data: {{ contato.data|date("H:i:s d/m/Y") }}</span>
+  </p>
+  {% endfor %}
+</div>
+<script src="app/View/Dashboard/index.js"></script>
